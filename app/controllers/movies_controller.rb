@@ -7,6 +7,7 @@ class MoviesController < ApplicationController
   end
 
   def index
+    debugger
     @movies = Movie.all
   end
 
