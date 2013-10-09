@@ -22,6 +22,12 @@ class MoviesController < ApplicationController
     if params[:order] == "release_date"
       @release_date_header = "hilite"
     end
+    if @ratings != nil
+      @checker = @ratings
+
+    else
+      @checker = []
+    end
   end
 
   def new
