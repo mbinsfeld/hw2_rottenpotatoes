@@ -8,7 +8,14 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings = Movie.ratings
-    @movies = Movie.find(:all, :order => params[:order])
+    @ratings = params['ratings']
+    if @ratings == nil
+      @movies = Movie.find(:all, :order => params[:order])
+    else
+       @ratings = @ratings.keys
+       @movies = Movie.find(:all, :conditions =>{:rating => (@ratings == [] ? @all_ratings : @ratings)}, :order => params[:order])
+    end
+   
     if params[:order] == "title"
       @title_header = "hilite"
     end
