@@ -7,8 +7,18 @@ class MoviesController < ApplicationController
   end
 
   def index
+    if (params[:ratings] == nil and session[:ratings] !=nil) or 
+              (params[:order] == nil and session[:ratings] != nil)
+      if params[:order] == nil and session[:order] != nil
+        params[:order] = session[:order]
+      end 
+      if params[:ratings] == nil and session[:ratings] != nil
+        params[:ratings] = session[:ratings]
+      end
+      redirect_to movies_path(:order => params[:order], :ratings => params[:ratings])
+    end
     @all_ratings = Movie.ratings
-    @ratings = params['ratings']
+    @ratings = params[:ratings]
     if @ratings == nil
       @movies = Movie.find(:all, :order => params[:order])
     else
@@ -28,6 +38,8 @@ class MoviesController < ApplicationController
     else
       @checker = []
     end
+    session[:order] = params[:order]
+    session[:ratings] = params[:ratings]
   end
 
   def new
