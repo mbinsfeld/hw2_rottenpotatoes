@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
 
   def index
     if (params[:ratings] == nil and session[:ratings] !=nil) or 
-              (params[:order] == nil and session[:ratings] != nil)
+              (params[:order] == nil and session[:order] != nil)
       if params[:order] == nil and session[:order] != nil
         params[:order] = session[:order]
       end 
